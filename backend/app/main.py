@@ -5,6 +5,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.middleware.error_handler import global_exception_handler, integrity_error_handler
 from app.middleware.tools_auth import ToolsAuthMiddleware
+from app.models import Base
+from app.database import engine
+from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 
 settings = get_settings()
@@ -16,7 +19,11 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting CRM & AI Calling Platform")
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        logger.info("Database tables ensured")
     yield
+    await engine.dispose()
     logger.info("Shutting down")
 
 

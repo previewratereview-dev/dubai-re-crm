@@ -1,6 +1,6 @@
 import uuid
-from sqlalchemy import String, Text, JSONB
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import String, Text
+from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import BaseModel
 

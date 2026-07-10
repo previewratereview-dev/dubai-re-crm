@@ -1,8 +1,6 @@
 "use client";
 
-import { AuthProvider, useAuth } from "@/providers/auth-provider";
-import { QueryProvider } from "@/providers/query-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { useAuth } from "@/providers/auth-provider";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Topbar } from "@/components/layout/topbar";
 import { useRouter } from "next/navigation";
@@ -31,13 +29,5 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 }
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider>
-      <QueryProvider>
-        <AuthProvider>
-          <DashboardShell>{children}</DashboardShell>
-        </AuthProvider>
-      </QueryProvider>
-    </ThemeProvider>
-  );
+  return <DashboardShell>{children}</DashboardShell>;
 }

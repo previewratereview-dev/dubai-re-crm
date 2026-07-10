@@ -30,7 +30,7 @@ class Call(Base):
     outcome: Mapped[str | None] = mapped_column(String(100), nullable=True)
     appointment_created: Mapped[bool] = mapped_column(Boolean, default=False)
     lead_status_changed: Mapped[bool] = mapped_column(Boolean, default=False)
-    metadata: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    call_metadata: Mapped[dict | None] = mapped_column("metadata", JSONB, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default="now()")
 
     # Relationships

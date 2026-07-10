@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from app.models.call import CallDirection
 
 
@@ -20,9 +20,9 @@ class CallResponse(BaseModel):
     outcome: str | None
     appointment_created: bool
     lead_status_changed: bool
-    metadata: dict | None
+    call_metadata: dict | None = Field(None, alias="metadata")
     created_at: datetime
-    model_config = {"from_attributes": True}
+    model_config = {"from_attributes": True, "populate_by_name": True}
 
 
 class CallCreate(BaseModel):
@@ -38,4 +38,4 @@ class CallCreate(BaseModel):
     transcript_url: str | None = None
     recording_url: str | None = None
     outcome: str | None = None
-    metadata: dict | None = None
+    call_metadata: dict | None = Field(None, alias="metadata")

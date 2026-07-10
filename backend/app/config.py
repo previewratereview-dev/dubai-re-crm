@@ -41,7 +41,15 @@ class Settings(BaseSettings):
     GOOGLE_CALENDAR_REDIRECT_URI: str = "http://localhost:8000/api/integrations/google-calendar/callback"
 
     # CORS
-    CORS_ORIGINS: list[str] = ["http://localhost:3000"]
+    CORS_ORIGINS: str = '["http://localhost:3000"]'
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        import json
+        try:
+            return json.loads(self.CORS_ORIGINS)
+        except (json.JSONDecodeError, TypeError):
+            return ["http://localhost:3000"]
 
     # Redis (for background tasks)
     REDIS_URL: str = "redis://localhost:6379/0"
